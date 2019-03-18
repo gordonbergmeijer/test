@@ -4,4 +4,4 @@ function test-gb {
 test-gb
 Write-Host "testjes"
 Write-Host "nog meer testjes"
-Write-Host "nog meer testjest" 
+Write-Host "nog veel meer testjest" 
