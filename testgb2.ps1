@@ -4,3 +4,4 @@ function test-gb {
 test-gb
 Write-Host "meer testjes"
 Write-Host "meer testjes"
+Measure-Object {Get-LocalUser}

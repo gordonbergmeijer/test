@@ -1,10 +1,27 @@
-try {
-    $wc = new-object System.Net.WebClient
-    $wc.DownloadFile("http://www.contoso.com/MyDoc.doc")
+Function New-ErrorRecord {
+    param(
+        [String]$Exception,
+        [String]$ExceptionMessage,
+        [System.Management.Automation.ErrorCategory] $ErrorCategory,
+        [String] $TargetObject
+    )
+
+    $e = New-Object $Exception $ExceptionMessage
+    $errorRecord = New-Object System.Management.Automation.ErrorRecord $e, $ErrorID, $ErrorCategory, $TargetObject
+    return $ErrorRecord
 }
-catch [System.Net.WebException], [System.IO.IOException] {
-    "Unable to download MyDoc.doc from http://www.contoso.com."
+
+Try {
+    If (not condition) {
+        $Error = @{
+            Exception        = 'System.Management.Automation.ParameterBindingException'
+            ExceptionMessage = 'Error text here'
+            ErrorCategory    = [System.Management.Automation.ErrorCategory]::InvalidArgument
+            TargetObject     = ''
+        }
+        $PSCmdlet.ThrowTerminatingError((New-ErrorRecord @Error))
+    }
 }
-catch {
-    "An error occurred that could not be resolved."
+Catch [System.Management.Automation.ParameterBindingException] {
+    'do stuff'
 }
